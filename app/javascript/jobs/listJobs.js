@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter } from 'react-router-dom'
-import { Route } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link, Switch, withRouter } from 'react-router-dom'
+import JobListing from './jobListing'
+import EditJob from "./editJob"
 
 class App extends Component {
 
@@ -10,7 +10,8 @@ class App extends Component {
     jobs:[],
     newJobTitle: "",
     newJobDescription: "",
-    activeJobId: 0
+    activeJobId: 0,
+    history: ''
   }
 
   handleInputChange(event) {
@@ -23,8 +24,11 @@ class App extends Component {
     })
 
   }
-  handleJobUpdateButton(jobId) {
-    fetch(`/api/v1/jobs/${jobId}`, {
+  handleJobUpdateButton(job) {
+    this.setState({
+      history: '/new'
+    })
+    fetch(`/api/v1/jobs/${job.id}`, {
 
     }).then(returnedValue => { 
       return returnedValue.json()
@@ -66,10 +70,7 @@ class App extends Component {
     }).then(returnedValue => {
 
       this.updateJobsList()
-      this.setState({
-        newJobTitle: "",
-        newJobDescription: ""
-      })
+      
     })
   }
 
@@ -81,15 +82,25 @@ class App extends Component {
   updateJobsList() {
     this.getJobs().then(returnedValue => {
       this.setState({
-        jobs: returnedValue
+        jobs: returnedValue,
+        newJobTitle: "",
+        newJobDescription: "",
+        activeJobId: 0
       })
     })
   }
 
   handleSubmit(event) {
-    
+
     event.preventDefault()
-    this.postNewJob()
+    console.log(this.state.activeJobId === null)
+    console.log(this.props.jobId)
+    if (this.state.activeJobId === null) {
+      this.postNewJob()
+    } else {
+      this.editJob(this.state.activeJobId)
+    }
+    
   }
 
   editJob(jobId) {
@@ -128,63 +139,53 @@ class App extends Component {
     }); 
   }
 
+  handleSubmit(event) {
+    event.preventDefault()
+    console.log("submitting from main")
+    console.log(event.target.id.value)
+
+    let jobForm = event.target 
+    // fetch('/api/v1/jobs', {
+    //   method: 'POST',
+    //   body: JSON.stringify({
+    //     title: jobForm.title.value,
+    //     description: jobForm.description.value,
+    //   }),
+    //   headers: {
+    //   'Content-Type': 'application/json'
+    // },
+    // }).then(returnedValue => {
+
+    //   this.updateJobsList()
+    //   // history.push('/new-location')
+    //   console.log(returnedValue)
+    // })
+
+  }
+
+
+
   render() {
 
     const { jobs } = this.state
 
     return (
       <div>
-      <Route exact path='/' render={({history}) => (
-        <div className="container">
-        <div><h1>Job List</h1></div>
+      <Switch>
+        <Route exact path="/" render={({history}) => (
+        
+        <div className="container"><h1>Job List</h1>
 
-        <ul>
-        {jobs && jobs.length &&
-          jobs.map((job, i) => {
-            return <li key={i}>{job.title}, {job.description}, {job.id} <input type="submit" value="Delete Job" onClick={event => this.deleteJob(event, job.id)}/><input type="submit" value="Update Job" onClick={event => this.handleJobUpdateButton(job.id)}/></li>;
-          })
-        }
-        </ul>
+          <JobListing jobs={jobs} handleSubmit={e => this.handleSubmit(e)}/>
+
         <div className="add-job">
           <Link to='/new' className=''>Add Job</Link>
         </div>
         </div>
         )}/>
-      <Route path='/new' render={({history}) => (
-        <div><h1>Add Job</h1>
-                <form onSubmit={event => this.handleSubmit(event)}>
-        <label>
-          Title:
-          <input
-            name="newJobTitle"
-            type="text"
-            value={this.state.newJobTitle}
-            onChange={e => this.handleInputChange(e)} />
-        </label>
-        <br />
-        <label>
-          Description:
-          <input
-            name="newJobDescription"
-            type="text"
-            value={this.state.newJobDescription}
-            onChange={e => this.handleInputChange(e)} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-      <form onSubmit={event => this.editJob(event)}>
-        <input
-          name="activeJobId"
-          type="number"
-          onChange={event => this.handleInputChange(event)}
-        >
-        </input>
-        <input type="submit" value="Submit" />
-      </form>
-
-
-        </div>
-        )}/>
+        <Route path="/new" component={EditJob}/>
+        
+      </Switch>
       </div>
       )
   }
