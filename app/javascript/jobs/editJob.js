@@ -106,7 +106,7 @@ class EditJob extends Component {
       headers: {
         'Content-Type': 'application/json'
       }
-    }).then( _ => { return returnedValue.json()
+    }).then( _ => { 
     }).then( _ => {
       this.updateHomeJobList()
     }) 
