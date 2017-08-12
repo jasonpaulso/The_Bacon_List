@@ -5,40 +5,23 @@ import EditJob from './editJob'
 
 class JobListing extends Component {
 
-  handleSubmit(event) {
-    console.log(event)
-  }
-
-  render() {
+  render = () => {
     const { jobs } = this.props
-
     return (
-
-          <ul>
+      <div>
         {jobs && jobs.length &&
           jobs.map((job, i) => {
-            const path = { pathname: "/new", job: job, handleSubmit: e => this.handleSubmit(e) }
             return (
-            <div key={i}> 
-              <h4>{job.title}</h4> 
-              <p>{job.description}</p>
-              <input type="submit" value="Delete Job"/>
-              <Link to={path} className=''>Edit Job</Link>
-
-            </div>
-              )
+              <div key={i} style={{border: "1px solid black"}}> 
+                <h4 style={{borderBottom: "1px solid black", textAlign: "center"}}>{job.title} <Link to={{ pathname: `/form/${job.id}`}} style={{fontSize: "10px"}}>Edit Job</Link></h4>
+                <p>{job.description}</p>
+                
+              </div>
+            )
           })
         }
-        </ul>
-
-
-
-
-
-
-
-      )
-
+      </div>
+    )
   }
 
 }

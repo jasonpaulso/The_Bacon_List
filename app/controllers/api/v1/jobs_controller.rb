@@ -1,6 +1,8 @@
-  require 'pry'
-  class Api::V1::JobsController < Api::V1::BaseController
+require 'pry'
+
+class Api::V1::JobsController < Api::V1::BaseController
   before_action :verify_requested_format! 
+
   def index 
     respond_with Job.all 
   end
@@ -12,10 +14,7 @@
     end
   end 
   def create
-    # puts job_params
-    # binding.pry
     respond_with :api, :v1, Job.create(job_params)
-    
   end 
   def destroy 
     job = Job.find(params["id"])

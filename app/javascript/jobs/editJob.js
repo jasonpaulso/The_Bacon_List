@@ -6,42 +6,68 @@ import { BrowserRouter as Router, Route, Link, Switch, withRouter } from 'react-
 class EditJob extends Component {
 
   state = {
-    id: "",
+    isLoading: true,
+    id: 0,
     title: "",
     description: ""
   }
 
-  handleInputChange(event) {
+  componentWillMount = () => {
+    if (this.props.match.params.jobId) {
+      this.fetchJob()
+    } else {
+      this.setState({
+        isLoading: false
+      })
+    }
+  }
+
+  handleInputChange = (event) => {
     const target = event.target;
     const value = event.target.value
     const name = target.name;
-    console.log(value)
-
     this.setState({
       [name]: value
-    }, console.log(this.state.job))
-    console.log(this.state.job)
+    })
   }
 
-  componentDidMount() {
-    if (this.props.location.job != undefined) {
-      this.setState({
-          id: this.props.location.job.id,
-          id: this.props.location.job.title,
-          id: this.props.location.job.description
-      })
-    }
-    
-  }
-
-  postNewJob(event) {
-
+  handleJobForm = (event) => {
     event.preventDefault()
+    if (this.state.id) {
+      this.editJob(event)
+    } else {
+      this.postJob(event)
+    }
+  }
 
-    let body = { job: { title: this.state.title, description: this.state.description} }
-    console.log(body)
+  updateHomeJobList = () => {
+    this.props.updateJobList()
+    this.goHome()
+  }
 
-    fetch('/api/v1/jobs', {
+  goHome = () => {
+    this.props.history.push('/')
+  }
+
+  fetchJob = () => {
+    let jobId = this.props.match.params.jobId
+    const getJobApi = `/api/v1/jobs/${jobId}`;
+    return fetch(getJobApi).then(returnedValue => {
+      return returnedValue.json()
+    }).then(jobJson => {
+      this.setState({
+        title: jobJson.title,
+        description: jobJson.description,
+        id: jobJson.id,
+        isLoading: false
+      })
+    })
+
+  }
+
+  postJob = (event) => {
+    const getJobsApi = '/api/v1/jobs';
+    fetch(getJobsApi, {
       method: 'POST',
       body: JSON.stringify({
         title: this.state.title,
@@ -50,55 +76,89 @@ class EditJob extends Component {
       headers: {
       'Content-Type': 'application/json'
     },
-    }).then(returnedValue => {
-
-      // this.updateJobsList()
-      // history.push('/new-location')
-      console.log(returnedValue)
+    }).then( _ => { 
+      this.updateHomeJobList()
     })
   }
 
-  render() { 
-
-    let job 
-    if (this.props.location.job != undefined) {
-      job = this.props.location.job
-    } else {
-      job = this.state
-    }
-    
-    return (
-      <div className="container"><h1>Add Job</h1>
-
-        <form onSubmit={event => this.postNewJob(event)}>
-        <input name="jobId" defaultValue={job.id} hidden={true} onChange={e => this.handleInputChange(e)} />
-        <label>
-          Title:
-          <input
-            name="title"
-            type="text"
-            defaultValue={job.title}
-            onChange={e => this.handleInputChange(e)} />
-        </label>
-        <br />
-        <label>
-          Description:
-          <input
-            name="description"
-            type="text"
-            defaultValue={job.description}
-            onChange={e => this.handleInputChange(e)} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-      <div className="">
-          <Link to='/' className=''>Go Back</Link>
-      </div>
-
-        </div>)
-
+  editJob = (event) => {
+    event.preventDefault()
+    const editJobApi = `/api/v1/jobs/${this.state.id}`
+    fetch(editJobApi, {
+      method: 'PUT',
+      body: JSON.stringify({
+        title: this.state.title,
+        description: this.state.description,
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    }).then( _ => {
+      this.updateHomeJobList()
+    })
   }
 
+  deleteJob = (event) => {
+    event.preventDefault()
+    const deleteJobApi = `/api/v1/jobs/${this.state.id}`
+    fetch(deleteJobApi, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then( _ => { return returnedValue.json()
+    }).then( _ => {
+      this.updateHomeJobList()
+    }) 
+  }
+
+  renderDeleteButton = () => {
+    const isEditing = this.state.id
+    if (isEditing) {
+      return <input type="submit" value="Delete" name="delete" onClick={event => this.deleteJob(event)}/>
+    }
+    
+  }
+
+  render = () => {
+
+    const job = this.state
+
+    return (
+      <div className="container"><h1>Add Job</h1>
+        { job && !job.isLoading && 
+          <form>
+            <input name="jobId" defaultValue={job.id} hidden={true} onChange={event => this.handleInputChange(event)} />
+            <label>
+              Title:
+            <input
+              name="title"
+              type="text"
+              defaultValue={job.title}
+              onChange={e => this.handleInputChange(e)} />
+            </label>
+            <br />
+            <label>
+              Description:
+            <input
+              name="description"
+              type="text"
+              defaultValue={job.description}
+              onChange={e => this.handleInputChange(e)} />
+            </label>
+            <input type="submit" value="Submit" name="submit" onClick={event => this.handleJobForm(event)}/>
+            {this.renderDeleteButton()}
+          </form>
+        }
+        <div className="">
+        <Link to='/' className=''>Go Back</Link>
+        </div>
+      </div>
+    )
+  }
 }
 
 export default EditJob;
+
+
+
