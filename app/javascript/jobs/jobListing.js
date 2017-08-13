@@ -18,7 +18,6 @@ class JobListing extends Component {
                 <div key={i} style={{border: "1px solid black"}}> 
                   <h4 style={{borderBottom: "1px solid black", textAlign: "center"}}>{job.title} <Link to={{ pathname: `/form/${job.id}`}} style={{fontSize: "10px"}}>Edit Job</Link></h4>
                   <p>{job.description}</p>
-                  <SimpleMap />
                 </div>
               )
             })

@@ -3,11 +3,22 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Link, Switch, withRouter } from 'react-router-dom'
 import JobListing from './jobListing'
 import EditJob from "./editJob"
+import escapeRegExp from 'escape-string-regexp'
+// import sortBy from 'sort-by'
 
 class App extends Component {
 
   state = {
-    jobs: []
+    jobsCollection: [], 
+    searchResults: [],
+    query: ""
+  }
+  updateQuery = (query) => {
+    this.setState({ query: query.trim() })
+  }
+
+  clearQuery = () => {
+    this.setState({ query: '' })
   }
 
   componentDidMount = () => {
@@ -26,7 +37,7 @@ class App extends Component {
   updateJobsList = () => {
     this.getJobs().then(returnedValue => {
       this.setState({
-        jobs: returnedValue
+        jobsCollection: returnedValue
       })
     })
   }
@@ -42,13 +53,33 @@ class App extends Component {
       )
     }
 
-    const { jobs } = this.state
+    const { jobsCollection } = this.state
+    const { query } = this.state
+
+    let showingJobs
+
+    if (query) {
+      const match = new RegExp(escapeRegExp(query), 'i')
+      showingJobs = jobsCollection.filter((job) => match.test(job.title))
+    } else {
+      showingJobs = jobsCollection
+    }
 
     return (
       <Switch>
         <Route exact path="/" render={({history}) => (
+
           <div className="container"><h1>Job List | <Link to={{ pathname: '/form', query: { updateJobList: e => this.props.updateJobList(e) } }} style={{fontSize: ""}} >Add Job</Link></h1>
-            <JobListing jobs={jobs}/>
+            <div>
+            <input
+            className='search-jobs'
+            type='text'
+            placeholder='Search Jobs'
+            value={query}
+            onChange={(event) => this.updateQuery(event.target.value)}
+          />
+          </div>
+          <div><JobListing jobs={showingJobs}/></div>
           </div>
         )}/>
         <Route path="/form/:jobId?" render={JobForm}/> 
