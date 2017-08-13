@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Link, Switch, withRouter } from 'react-router-dom'
 import EditJob from './editJob'
+import GoogleMapReact from 'google-map-react'
 
 class JobListing extends Component {
 
@@ -17,7 +18,7 @@ class JobListing extends Component {
                 <div key={i} style={{border: "1px solid black"}}> 
                   <h4 style={{borderBottom: "1px solid black", textAlign: "center"}}>{job.title} <Link to={{ pathname: `/form/${job.id}`}} style={{fontSize: "10px"}}>Edit Job</Link></h4>
                   <p>{job.description}</p>
-                  
+                  <SimpleMap />
                 </div>
               )
             })
@@ -31,5 +32,4 @@ class JobListing extends Component {
   }
 
 }
-
 export default JobListing;
