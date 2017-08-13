@@ -4,15 +4,21 @@ import { BrowserRouter as Router, Route, Link, Switch, withRouter } from 'react-
 import JobListing from './jobListing'
 import EditJob from "./editJob"
 import escapeRegExp from 'escape-string-regexp'
-// import sortBy from 'sort-by'
+import sortBy from 'sort-by'
 
 class App extends Component {
 
   state = {
     jobsCollection: [], 
     searchResults: [],
-    query: ""
+    query: "",
   }
+
+  componentDidMount = () => {
+    this.updateJobsList()
+  }
+
+// Search Functions
   updateQuery = (query) => {
     this.setState({ query: query })
   }
@@ -20,11 +26,11 @@ class App extends Component {
   clearQuery = () => {
     this.setState({ query: '' })
   }
+// End Search Functions
 
-  componentDidMount = () => {
-    this.updateJobsList()
-  }
 
+
+// Fetch and Update Jobs Listing Functions
   getJobs = () => {
     const getJobsApi = '/api/v1/jobs.json';
     return fetch(getJobsApi).then(returnedValue => {
@@ -41,6 +47,7 @@ class App extends Component {
       })
     })
   }
+// End Fetch and Update Jobs Listing Functions
 
   render = () => {
 
@@ -64,6 +71,8 @@ class App extends Component {
     } else {
       showingJobs = jobsCollection
     }
+
+    showingJobs.sort(sortBy:"title")
 
     return (
       <Switch>
