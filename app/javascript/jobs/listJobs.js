@@ -14,7 +14,7 @@ class App extends Component {
     query: ""
   }
   updateQuery = (query) => {
-    this.setState({ query: query.trim() })
+    this.setState({ query: query })
   }
 
   clearQuery = () => {
@@ -60,7 +60,7 @@ class App extends Component {
 
     if (query) {
       const match = new RegExp(escapeRegExp(query), 'i')
-      showingJobs = jobsCollection.filter((job) => match.test(job.title))
+      showingJobs = Array.from(new Set(jobsCollection.filter((job) => match.test(job.title)).concat(jobsCollection.filter((job) => match.test(job.description))))) 
     } else {
       showingJobs = jobsCollection
     }
