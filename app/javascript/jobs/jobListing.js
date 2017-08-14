@@ -12,6 +12,10 @@ class JobListing extends Component {
     expanded: false
   }
 
+  componentDidMount() {
+    console.log("mounted.  ")
+  }
+
   updateExpandState = (event) => {
     event.preventDefault()
     this.setState({
@@ -25,41 +29,31 @@ class JobListing extends Component {
   }
 
   render = () => {
-    const { jobs } = this.props
+    const { job } = this.props
     const { expanded } = this.state
-
-    if (jobs.length) {
+    
       return (
         <div style={{width: "100%"}}>
-          {jobs && jobs.length &&
               
-            jobs.map((job, i) => {
-              return (
-                <div key={i} className="job-row-container">
-                  <div className="job-preview-container">
-                  <div className="job-listing-logo-container"></div>
-                  <div className="job-preview-detail-container">
-                    {this.renderDate(job.created_on)}
-                    <h4>{job.title}</h4>
-                    <h4>Google</h4>
-                  </div>
-                  <div className="job-preview-detail-show-container">
-                    <a href="" onClick={(event) => this.updateExpandState(event)}>Expand</a>
-                    <Link to={`/form/${job.id}`} style={{fontSize: "10px"}}>Edit Job</Link>
-                  </div>
-                  </div> 
-                  <SmoothCollapse expanded={expanded}>
-                    <p>{job.description}</p>
-                  </SmoothCollapse>
-                </div>
-              )
-            })
-          }
+            <div key={job.id} className="job-row-container">
+              <div className="job-preview-container">
+              <div className="job-listing-logo-container"></div>
+              <div className="job-preview-detail-container">
+                {this.renderDate(job.created_on)}
+                <h4>{job.title}</h4>
+                <h4>Google</h4>
+              </div>
+              <div className="job-preview-detail-show-container">
+                <a href="" onClick={(event) => this.updateExpandState(event)}>Expand</a>
+              </div>
+              </div> 
+              <SmoothCollapse expanded={expanded}>
+                <p>{job.description}</p>
+                <Link to={`/form/${job.id}`} style={{fontSize: "10px"}}>Edit Job</Link>
+              </SmoothCollapse>
+            </div>
         </div>
       )
-    } else {
-      return null
-    }
 
   }
 

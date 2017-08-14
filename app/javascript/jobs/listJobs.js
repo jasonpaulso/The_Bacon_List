@@ -50,8 +50,23 @@ class App extends Component {
 // DOM Rendering Functions
 
   renderJobsList(jobs) {
+
     if (jobs.length) {
-      return <div style={{ width: "100%"}}><JobListing jobs={jobs}/></div>
+
+      return (
+        
+        <div style={{ width: "100%"}}>
+
+          { jobs.map(job => {
+              
+              return <JobListing job={job}/>
+
+          })}
+          
+
+
+        </div>
+        )
     } else {
       return <div><h1>Sorry, no jobs for your search. Perhaps try being less specific.</h1></div>
     }
