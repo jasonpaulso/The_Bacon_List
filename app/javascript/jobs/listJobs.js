@@ -28,8 +28,6 @@ class App extends Component {
   }
 // End Search Functions
 
-
-
 // Fetch and Update Jobs Listing Functions
   getJobs = () => {
     const getJobsApi = '/api/v1/jobs.json';
@@ -48,6 +46,16 @@ class App extends Component {
     })
   }
 // End Fetch and Update Jobs Listing Functions
+
+// DOM Rendering Functions
+
+  renderJobsList(jobs) {
+    if (jobs.length) {
+      return <div><JobListing jobs={jobs}/></div>
+    } else {
+      return <div><h1>Sorry, no jobs for your search. Perhaps try being less specific.</h1></div>
+    }
+  }
 
   render = () => {
 
@@ -88,13 +96,15 @@ class App extends Component {
             onChange={(event) => this.updateQuery(event.target.value)}
           />
           </div>
-          <div><JobListing jobs={showingJobs}/></div>
+            {jobsCollection && showingJobs && this.renderJobsList(showingJobs)}
           </div>
         )}/>
         <Route path="/form/:jobId?" render={JobForm}/> 
       </Switch>
     )
   }
+
+// End DOM Rendering Functions
 }
 
 export default App;
