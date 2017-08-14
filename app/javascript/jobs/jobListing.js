@@ -36,23 +36,38 @@ class JobListing extends Component {
     const { job } = this.props
     const { expanded } = this.state
       return (
-        <div style={{width: "100%"}}>
+        <div>
               
-            <div  className="job-row-container">
-              <div className="job-preview-container">
-              <div className="job-listing-logo-container"></div>
-              <div className="job-preview-detail-container">
-                {this.renderDate(job.created_on)}
-                <h4>{job.title}</h4>
-                <h4>Google</h4>
+            <div  className="job-row">
+              <div className="job-preview row">
+              <div className="col-sm-2 test-border logo-column">
+                <div className="job-logo"></div>
               </div>
-              <div className="job-preview-detail-show-container">
-                <a href="" onClick={(event) => this.updateExpandState(event)}>{this.renderOpenClose()}</a>
+                
+                  <div className="job-listing-preview col-sm-8 test-border">
+                    {this.renderDate(job.created_on)}
+                    <h4>{job.title}</h4>
+                    <h4>{job.company}</h4>
+                  </div>
+                  <div className="job-dropdown-container col-sm-2 test-border">
+                    <a href="" onClick={(event) => this.updateExpandState(event)}>{this.renderOpenClose()}</a>
+                  </div>
+                
               </div>
-              </div> 
               <SmoothCollapse expanded={expanded}>
-                <p>{job.description}</p>
-                <Link to={`/form/${job.id}`} style={{fontSize: "10px"}}>Edit Job</Link>
+                <div className="row job-content-container">
+                  <div className="col-sm-2"></div>
+                  <div className="job-content col-sm-5">
+                    <p>{job.description}</p>
+                    
+                  </div>
+                  <div className="col-sm-5">
+                    <div className="map-container"></div>
+                  </div>
+                </div>
+                <div className="job-listing-buttons-row row">
+                  <Link to={`/form/${job.id}`} style={{fontSize: "10px"}}>Edit Job</Link>
+                </div>
               </SmoothCollapse>
             </div>
         </div>
@@ -62,3 +77,5 @@ class JobListing extends Component {
 
 }
 export default JobListing;
+
+
