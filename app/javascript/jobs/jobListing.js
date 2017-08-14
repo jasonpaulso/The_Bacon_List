@@ -12,10 +12,6 @@ class JobListing extends Component {
     expanded: false
   }
 
-  componentDidMount() {
-    console.log("mounted.  ")
-  }
-
   updateExpandState = (event) => {
     event.preventDefault()
     this.setState({
@@ -25,17 +21,24 @@ class JobListing extends Component {
 
   renderDate = (date) => {
     Moment.locale('en')
-    return(<span> {Moment(date).format('M.D.Y')} </span>) //basically you can do all sorts of the formatting and others
+    return(<span> {Moment(date).format('M.D.Y')} </span>) 
+  }
+
+  renderOpenClose() {
+    if (!this.state.expanded) {
+      return (<span>Open +</span>)
+    } else {
+      return (<span>Close -</span>)
+    }
   }
 
   render = () => {
     const { job } = this.props
     const { expanded } = this.state
-    
       return (
         <div style={{width: "100%"}}>
               
-            <div key={job.id} className="job-row-container">
+            <div  className="job-row-container">
               <div className="job-preview-container">
               <div className="job-listing-logo-container"></div>
               <div className="job-preview-detail-container">
@@ -44,7 +47,7 @@ class JobListing extends Component {
                 <h4>Google</h4>
               </div>
               <div className="job-preview-detail-show-container">
-                <a href="" onClick={(event) => this.updateExpandState(event)}>Expand</a>
+                <a href="" onClick={(event) => this.updateExpandState(event)}>{this.renderOpenClose()}</a>
               </div>
               </div> 
               <SmoothCollapse expanded={expanded}>
