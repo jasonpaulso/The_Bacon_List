@@ -6,6 +6,7 @@ import GoogleMapReact from 'google-map-react'
 import Moment from 'moment';
 import SmoothCollapse from 'react-smooth-collapse'
 import sortBy from 'sort-by'
+import chevron from './assets/images/chevron.svg'
 
 class JobListing extends Component {
 
@@ -27,9 +28,19 @@ class JobListing extends Component {
 
   renderOpenClose() {
     if (!this.state.expanded) {
-      return (<span>Open +</span>)
+      return (
+        <span className="chevron-container">
+          <span>Open</span> 
+          <img src={chevron} alt="" className="chevron"/>
+        </span>
+        )
     } else {
-      return (<span>Close -</span>)
+      return (
+        <span className="chevron-container open">
+          <span>Close</span> 
+          <img src={chevron} alt="" className="chevron"/>
+        </span>
+        )
     }
   }
 
@@ -74,8 +85,8 @@ class JobListing extends Component {
             </div>
             <div className="job-listing-buttons-row row">
               <div className="col-sm-2"></div>
-              <div className="col-sm-8"><Link className="btn" to={``} style={{fontSize: "10px"}}>Contact</Link></div>
-              <div className="col-sm-2 right-button-column"><Link className="btn" to={`/form/${job.id}`}>Edit Job</Link></div>
+              <div className="col-sm-8"><a className="" href={`mailto:${job.contact_address}?Subject=${job.title}`} style={{fontSize: "10px"}}><div className="button-container btn">Contact</div></a></div>
+              <div className="col-sm-2 right-button-column"><Link className="" to={`/form/${job.id}`}><div className="button-container btn">Edit Job</div></Link></div>
             </div>
             </SmoothCollapse>
           </div>

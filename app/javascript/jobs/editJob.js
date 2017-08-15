@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Link, Switch, withRouter } from 'react-router-dom'
+import DropdownSelection from './dropdown'
 
 
 class EditJob extends Component {
@@ -126,6 +127,7 @@ class EditJob extends Component {
 
     return (
       <div className="container"><h1>Add Job</h1>
+      
         { job && !job.isLoading && 
           <form>
             <input name="jobId" defaultValue={job.id} hidden={true} onChange={event => this.handleInputChange(event)} />

@@ -5,6 +5,7 @@ import JobListing from './jobListing'
 import EditJob from "./editJob"
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
+import DropdownSelection from './dropdown'
 
 class App extends Component {
 
@@ -13,6 +14,7 @@ class App extends Component {
     searchResults: [],
     query: "",
     sortByDate: false
+    
   }
 
   componentDidMount = () => {
@@ -74,6 +76,17 @@ class App extends Component {
 
   render = () => {
 
+    const createItem = (item, key) =>
+
+      <option
+        key={key}
+        value={item.value}
+      >
+        {item.name}
+      </option>
+
+
+
     const JobForm = (props) => {
       return (
         <EditJob 
@@ -115,7 +128,7 @@ class App extends Component {
             value={query}
             onChange={(event) => this.updateQuery(event.target.value)}
           />
-          <Link to={"/form"} ><span className="btn">Add Listing</span></Link>
+          <Link to={"/form"} ><div className="button-container btn">Add Listing</div></Link>
 
 
           </div>
@@ -125,7 +138,7 @@ class App extends Component {
           <div className="row jobs-list">
             <div className="jobs-list-header">
               <span>Listings found: {jobsCollection.length}</span>
-              <span>Sort by: <a href="" onClick={(event) => this.sortByDate(event)}>Date added</a></span>
+              <div><DropdownSelection/></div>
             </div>
             {jobsCollection && showingJobs && this.renderJobsList(showingJobs)}
           </div>
@@ -138,5 +151,18 @@ class App extends Component {
 
 // End DOM Rendering Functions
 }
+
+
+                  // <select id="sort"
+                  //   value={"dateAdded"}
+                  //   // onChange={event => handleShelfSelect(event, bookId)}  
+                  // >
+                  //   {this.state.sortOptions.map(createItem)}
+
+                  // </select>
+
+
+
+
 
 export default App;

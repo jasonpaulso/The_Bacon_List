@@ -70,6 +70,7 @@ input.search-jobs {
   text-decoration: none;
   margin-top: -2.9px;
   text-transform: uppercase;
+  vertical-align: middle;
 }
 
 .btn:hover {
@@ -77,6 +78,87 @@ input.search-jobs {
   text-decoration: none;
 }
 
+/*Semantic UI Dropdown Overrides*/
+.ui.selection.dropdown {
+  border: none;
+  width: 200px;
+}
+div.menu.transition.visible {
+  border: none;
+  box-shadow: unset;
+  width:200px !important;
+  border-radius: unset;
+}
+
+#root > div > div.row.jobs-list > div.jobs-list-header > div > div > div.menu.transition.visible {
+  width:200px;
+}
+
+
+div.ui.active.visible.selection.dropdown {
+  box-shadow: 0 0px 6px 0 rgba(34,36,38,.15);
+  transition: unset;
+  border-radius: unset;
+
+}
+
+.ui.selection.active.dropdown .menu {
+  margin: unset;
+  min-width: unset;
+}
+
+..ui.selection.active.dropdown:hover .menu {
+  box-shadow: 0 1.8px 6px 0 rgba(34,36,38,.15);
+  border-radius: unset;
+}
+.ui.dropdown .menu .selected.item, .ui.dropdown.selected {
+  background: transparent;
+}
+.ui.selection.dropdown .menu>.item {
+  border-top: unset;
+}
+.ui.selection.active.dropdown:hover, .ui.selection.active.dropdown:hover .menu, .ui.selection.active.dropdown .menu {
+  /*box-shadow: unset;*/
+  /*border-color: black;*/
+  border: none;
+}
+
+.ui.selection.active.dropdown {
+  border: none;
+  /*border-color: black;*/
+}
+
+.dropdown {
+  /*width: 400px;*/
+  /*border: none;*/
+  
+}
+.dropdown .text {
+  width: 100%;
+  /*text-align: right;*/
+}
+
+.dropdown .icon {
+  /*display: none;*/
+}
+
+/*End Semantic UI Dropdown Overrides*/
+
+.chevron-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+img.chevron {
+  transform: rotate(180deg);
+  height: 12px;
+  margin-left: 10px;
+}
+
+.open img.chevron {
+  transform: unset;
+}
 .jobs-list {
   width: 100%;
   box-shadow: 0px 0px 2px 2px rgba(179,175,179,1);
@@ -90,6 +172,23 @@ input.search-jobs {
   align-items: center;
   padding: 30px;
   text-transform: uppercase;
+  overflow: visible
+}
+
+select {
+    /*padding-left:65px;*/
+    /*height:40px;*/
+    /*position:relative;*/
+    border: none;
+    /*width:300px;*/
+    /*display:block;*/
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    -ms-appearance: none;
+    border-radius: 0;
+    -webkit-box-shadow: none;
 }
 
 .job-preview {
