@@ -12,6 +12,7 @@ class App extends Component {
     jobsCollection: [], 
     searchResults: [],
     query: "",
+    sortByDate: false
   }
 
   componentDidMount = () => {
@@ -63,6 +64,14 @@ class App extends Component {
   
   }
 
+  sortByDate(event) {
+    event.preventDefault()
+    console.log(this.state.sortByDate)
+    this.setState({
+      sortByDate: !this.state.sortByDate
+    })
+  }
+
   render = () => {
 
     const JobForm = (props) => {
@@ -84,18 +93,19 @@ class App extends Component {
 
       const titleFilter = (job) => match.test(job.title)
       const descriptionFilter = (job) => match.test(job.description)
+      const companyFilter = (job) => match.test(job.company)
 
-      showingJobs = Array.from(new Set(jobsCollection.filter(titleFilter).concat(jobsCollection.filter(descriptionFilter)))) 
+      showingJobs = Array.from(new Set(jobsCollection.filter(titleFilter).concat(jobsCollection.filter(descriptionFilter)).concat(jobsCollection.filter(companyFilter)))) 
     } else {
       showingJobs = jobsCollection
     }
 
-    // showingJobs.sort(sortBy:"title")
+    showingJobs.sort(sortBy:"created_on")
   
     return (
       <Switch>
         <Route exact path="/" render={({history}) => (
-          <div className="main">
+          <div className="main flex-direction-column">
           <div className="row header" ><h1>The Bacon</h1>
           <div className="header-right">
             <input
@@ -105,7 +115,7 @@ class App extends Component {
             value={query}
             onChange={(event) => this.updateQuery(event.target.value)}
           />
-          <Link to={"/form"} className="add-job-button">Add Listing</Link>
+          <Link to={"/form"} ><span className="btn">Add Listing</span></Link>
 
 
           </div>
@@ -115,7 +125,7 @@ class App extends Component {
           <div className="row jobs-list">
             <div className="jobs-list-header">
               <span>Listings found: {jobsCollection.length}</span>
-              <span>Sort by: Date added</span>
+              <span>Sort by: <a href="" onClick={(event) => this.sortByDate(event)}>Date added</a></span>
             </div>
             {jobsCollection && showingJobs && this.renderJobsList(showingJobs)}
           </div>

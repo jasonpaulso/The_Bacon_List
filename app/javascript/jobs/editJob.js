@@ -151,7 +151,7 @@ class EditJob extends Component {
           </form>
         }
         <div className="">
-        <Link to='/' className=''>Go Back</Link>
+        <Link to='/' className='btn'>Go Back</Link>
         </div>
       </div>
     )
