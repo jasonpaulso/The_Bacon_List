@@ -4,13 +4,18 @@ import { BrowserRouter as Router, Route, Link, Switch, withRouter } from 'react-
 import DropdownSelection from './dropdown'
 
 
+
 class EditJob extends Component {
 
   state = {
     isLoading: true,
     id: 0,
     title: "",
-    description: ""
+    description: "",
+    company:"",
+    logo_ur: "",
+    phone_number: "",
+    contact_address: ""
   }
 
   componentWillMount = () => {
@@ -56,10 +61,15 @@ class EditJob extends Component {
     return fetch(getJobApi).then(returnedValue => {
       return returnedValue.json()
     }).then(jobJson => {
+      const job = jobJson
       this.setState({
-        title: jobJson.title,
-        description: jobJson.description,
-        id: jobJson.id,
+        title: job.title,
+        description: job.description,
+        id: job.id,
+        company: job.company,
+        logo_url: job.logo_url,
+        phone_number: job.phone_number,
+        contact_address: job.contact_address,
         isLoading: false
       })
     })
@@ -71,8 +81,13 @@ class EditJob extends Component {
     fetch(getJobsApi, {
       method: 'POST',
       body: JSON.stringify({
-        title: this.state.title,
-        description: this.state.description,
+        title: job.title,
+        description: job.description,
+        id: job.id,
+        company: job.company,
+        logo_url: job.logo_url,
+        phone_number: job.phone_number,
+        contact_address: job.contact_address,
       }),
       headers: {
       'Content-Type': 'application/json'
@@ -85,11 +100,17 @@ class EditJob extends Component {
   editJob = (event) => {
     event.preventDefault()
     const editJobApi = `/api/v1/jobs/${this.state.id}`
+    const job = this.state
     fetch(editJobApi, {
       method: 'PUT',
       body: JSON.stringify({
-        title: this.state.title,
-        description: this.state.description,
+        title: job.title,
+        description: job.description,
+        id: job.id,
+        company: job.company,
+        logo_url: job.logo_url,
+        phone_number: job.phone_number,
+        contact_address: job.contact_address,
       }),
       headers: {
         'Content-Type': 'application/json'
@@ -121,9 +142,48 @@ class EditJob extends Component {
     
   }
 
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
   render = () => {
 
     const job = this.state
+
+    const jobFormFields = [
+      {
+        name: "Job Title",
+        value: "title"},
+      {
+        name: "Job Description",
+        value: "description"},
+      {
+        name: "Company Name",
+        value: "company"},
+      {
+        name: "Logo URL",
+        value: "logo_url"},
+      {
+        name: "Phone Number", 
+        value: "phone_number"},
+      {
+        name: "Email Address",
+        value: "contact_address"
+      }
+    ]
+   
+    const createInput = (item, key) =>
+    
+    <label key={key}>
+      {this.capitalizeFirstLetter(item.name)}:
+      <input
+        key={key}
+        name={item.value}
+        type="text"
+        defaultValue={job[item.value] || ""}
+        onChange={e => this.handleInputChange(e)} />
+    </label>
+
+    
 
     return (
       <div className="container"><h1>Add Job</h1>
@@ -131,23 +191,7 @@ class EditJob extends Component {
         { job && !job.isLoading && 
           <form>
             <input name="jobId" defaultValue={job.id} hidden={true} onChange={event => this.handleInputChange(event)} />
-            <label>
-              Title:
-            <input
-              name="title"
-              type="text"
-              defaultValue={job.title}
-              onChange={e => this.handleInputChange(e)} />
-            </label>
-            <br />
-            <label>
-              Description:
-            <input
-              name="description"
-              type="text"
-              defaultValue={job.description}
-              onChange={e => this.handleInputChange(e)} />
-            </label>
+            {jobFormFields.map(createInput)}
             <input type="submit" value="Submit" name="submit" onClick={event => this.handleJobForm(event)}/>
             {this.renderDeleteButton()}
           </form>
@@ -161,6 +205,4 @@ class EditJob extends Component {
 }
 
 export default EditJob;
-
-
 

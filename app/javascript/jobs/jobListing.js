@@ -7,6 +7,7 @@ import Moment from 'moment';
 import SmoothCollapse from 'react-smooth-collapse'
 import sortBy from 'sort-by'
 import chevron from './assets/images/chevron.svg'
+import chevronDown from './assets/images/chevron-down.svg'
 
 class JobListing extends Component {
 
@@ -31,7 +32,7 @@ class JobListing extends Component {
       return (
         <span className="chevron-container">
           <span>Open</span> 
-          <img src={chevron} alt="" className="chevron"/>
+          <img src={chevronDown} alt="" className="chevron"/>
         </span>
         )
     } else {
@@ -54,11 +55,11 @@ class JobListing extends Component {
             <div className="job-preview">
               <div className="job-preview-inner row">
               <div className="col-sm-2 logo-column flex-column">
-                <div className="job-logo"></div>
+                <div className="job-logo" style={{backgroundImage:`url(${job.logo_url})`}}></div>
               </div>
               <div className="job-listing-preview col-sm-9">
                 <div className="preview-content">
-                  {this.renderDate(job.created_on)}
+                  {this.renderDate(job.created_at)}
                   <h4>{job.title}</h4>
                   <h4>{job.company}</h4>
                 </div>

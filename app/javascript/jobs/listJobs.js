@@ -5,7 +5,7 @@ import JobListing from './jobListing'
 import EditJob from "./editJob"
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
-import DropdownSelection from './dropdown'
+import SortSelect from './sortSelect'
 
 class App extends Component {
 
@@ -13,8 +13,7 @@ class App extends Component {
     jobsCollection: [], 
     searchResults: [],
     query: "",
-    sortByDate: false
-    
+    sortOption: "-created_at",
   }
 
   componentDidMount = () => {
@@ -52,20 +51,6 @@ class App extends Component {
 
 // DOM Rendering Functions
 
-  renderJobsList(jobs) {
-  
-    return (
-      jobs.map(job => {
-        return (
-          <div key={job.id} style={{ width: "100%"}}>
-            <JobListing job={job} />
-          </div>
-        )
-      })
-    )
-  
-  }
-
   sortByDate(event) {
     event.preventDefault()
     console.log(this.state.sortByDate)
@@ -74,18 +59,17 @@ class App extends Component {
     })
   }
 
+  onSortSelect(event) {
+  console.log("sorting by" + event.target.value)
+    this.setState({
+      sortOption: event.target.value
+      // jobsCollection: this.state.jobsCollection.sort(sortBy(event.target.value))
+    }, console.log(this.state.jobsCollection))
+
+
+  }
+
   render = () => {
-
-    const createItem = (item, key) =>
-
-      <option
-        key={key}
-        value={item.value}
-      >
-        {item.name}
-      </option>
-
-
 
     const JobForm = (props) => {
       return (
@@ -95,9 +79,7 @@ class App extends Component {
         />
       )
     }
-
-    const { jobsCollection } = this.state
-    const { query } = this.state
+    const { query, sortOption, jobsCollection } = this.state
 
     let showingJobs
 
@@ -108,12 +90,12 @@ class App extends Component {
       const descriptionFilter = (job) => match.test(job.description)
       const companyFilter = (job) => match.test(job.company)
 
-      showingJobs = Array.from(new Set(jobsCollection.filter(titleFilter).concat(jobsCollection.filter(descriptionFilter)).concat(jobsCollection.filter(companyFilter)))) 
+      showingJobs = Array.from(new Set(jobsCollection.filter(titleFilter).concat(jobsCollection.filter(descriptionFilter)).concat(jobsCollection.filter(companyFilter))))
     } else {
       showingJobs = jobsCollection
     }
 
-    showingJobs.sort(sortBy:"created_on")
+    showingJobs.sort(sortBy(sortOption))
   
     return (
       <Switch>
@@ -138,9 +120,20 @@ class App extends Component {
           <div className="row jobs-list">
             <div className="jobs-list-header">
               <span>Listings found: {jobsCollection.length}</span>
-              <div><DropdownSelection/></div>
+              <span className="jobs-list-header-right">Sort By:</span> <SortSelect onChange={(event) => this.onSortSelect(event)}/>
             </div>
-            {jobsCollection && showingJobs && this.renderJobsList(showingJobs)}
+            {jobsCollection && showingJobs && 
+              
+              showingJobs.map(job => {
+        return (
+          <div key={job.id} style={{ width: "100%"}}>
+            <JobListing job={job} />
+          </div>
+        )
+      })
+
+
+            }
           </div>
           </div>
         )}/>
@@ -151,18 +144,5 @@ class App extends Component {
 
 // End DOM Rendering Functions
 }
-
-
-                  // <select id="sort"
-                  //   value={"dateAdded"}
-                  //   // onChange={event => handleShelfSelect(event, bookId)}  
-                  // >
-                  //   {this.state.sortOptions.map(createItem)}
-
-                  // </select>
-
-
-
-
 
 export default App;

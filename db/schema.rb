@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170814203144) do
+ActiveRecord::Schema.define(version: 20170816154129) do
 
   create_table "jobs", force: :cascade do |t|
     t.string "title"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20170814203144) do
     t.string "state"
     t.decimal "zip"
     t.string "phone_number"
+    t.string "logo_url"
   end
 
 end

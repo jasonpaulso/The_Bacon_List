@@ -24,6 +24,45 @@ body {
   color: darkgrey;
   text-decoration: none;
  }
+
+ /*select {
+    text-align-last: right;
+}*/
+
+/*option {
+    direction: rtl;
+}*/
+ .sort-Select-style {
+    text-align: right;
+    overflow:hidden;
+    width:150px;
+    text-transform: uppercase;
+   /*-moz-border-radius: 9px 9px 9px 9px;
+   -webkit-border-radius: 9px 9px 9px 9px;*/
+   /*border-radius: 9px 9px 9px 9px;*/
+   
+   /*background: #58B14C url("http://i62.tinypic.com/15xvbd5.png") no-repeat scroll 319px center;*/
+}
+
+.sort-Select-style select {
+    padding: 5px 8px;
+    /*width: 130%;*/
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+    box-shadow: 0px 0px 2px 2px rgba(179,175,179,1);
+}
+
+.sort-Select-style select:focus {
+    outline: none;
+}
+
+.dropdown-option {
+  background-color: transparent;
+}
+
 .flex-column {
   display: flex;
   align-content: center;
@@ -40,8 +79,17 @@ body {
   text-transform: uppercase;
 }
 
+.header h1 {
+  margin-right: auto
+}
+
 .header-right {
   height: 30px;
+  margin-left: auto;
+}
+.jobs-list-header-right {
+  margin-left: auto;
+  margin-right: 10px;
 }
 
 input.search-jobs {
@@ -78,71 +126,7 @@ input.search-jobs {
   text-decoration: none;
 }
 
-/*Semantic UI Dropdown Overrides*/
-.ui.selection.dropdown {
-  border: none;
-  width: 200px;
-}
-div.menu.transition.visible {
-  border: none;
-  box-shadow: unset;
-  width:200px !important;
-  border-radius: unset;
-}
 
-#root > div > div.row.jobs-list > div.jobs-list-header > div > div > div.menu.transition.visible {
-  width:200px;
-}
-
-
-div.ui.active.visible.selection.dropdown {
-  box-shadow: 0 0px 6px 0 rgba(34,36,38,.15);
-  transition: unset;
-  border-radius: unset;
-
-}
-
-.ui.selection.active.dropdown .menu {
-  margin: unset;
-  min-width: unset;
-}
-
-..ui.selection.active.dropdown:hover .menu {
-  box-shadow: 0 1.8px 6px 0 rgba(34,36,38,.15);
-  border-radius: unset;
-}
-.ui.dropdown .menu .selected.item, .ui.dropdown.selected {
-  background: transparent;
-}
-.ui.selection.dropdown .menu>.item {
-  border-top: unset;
-}
-.ui.selection.active.dropdown:hover, .ui.selection.active.dropdown:hover .menu, .ui.selection.active.dropdown .menu {
-  /*box-shadow: unset;*/
-  /*border-color: black;*/
-  border: none;
-}
-
-.ui.selection.active.dropdown {
-  border: none;
-  /*border-color: black;*/
-}
-
-.dropdown {
-  /*width: 400px;*/
-  /*border: none;*/
-  
-}
-.dropdown .text {
-  width: 100%;
-  /*text-align: right;*/
-}
-
-.dropdown .icon {
-  /*display: none;*/
-}
-
-/*End Semantic UI Dropdown Overrides*/
 
 .chevron-container {
   display: flex;
@@ -151,8 +135,8 @@ div.ui.active.visible.selection.dropdown {
   justify-content: flex-end;
 }
 img.chevron {
-  transform: rotate(180deg);
-  height: 12px;
+  /*transform: rotate(180deg);*/
+  height: 13.5px;
   margin-left: 10px;
 }
 
@@ -215,8 +199,11 @@ select {
 .job-logo {
   width: 100px;
   height: 100px;
-  border-radius: 50px;
-  background-color: grey;
+  /*border-radius: 50px;*/
+  /*background-color: grey;*/
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .job-row {
