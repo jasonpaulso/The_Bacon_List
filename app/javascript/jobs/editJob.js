@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Link, Switch, withRouter } from 'react-router-dom'
 import DropdownSelection from './dropdown'
+import ReactPhoneInput from 'react-phone-input'
+
 
 class EditJob extends Component {
 
@@ -33,20 +35,25 @@ class EditJob extends Component {
   }
 
   handleInputChange = (event) => {
-    const target = event.target;
+    const target = event.target
     const value = event.target.value
     const name = target.name;
     this.setState({
       [name]: value
     }, console.log(this.state))
   }
+  handlePhoneInputChange = (value) => {
+   this.setState({
+      phone_number: value
+   });
+}
 
   handleJobFormSubmit = (event) => {
     event.preventDefault()
     this.postOrEditJob(event)
   }
 
-  updateHomeJobList = () => {
+  updateHomeJobListAndCloseForm = () => {
     this.props.updateJobList()
     this.goHome()
   }
@@ -85,7 +92,7 @@ class EditJob extends Component {
       'Content-Type': 'application/json'
     },
     }).then( _ => { 
-      this.updateHomeJobList()
+      this.updateHomeJobListAndCloseForm()
     })
   }
 
@@ -99,21 +106,51 @@ class EditJob extends Component {
       }
     }).then( _ => { 
     }).then( _ => {
-      this.updateHomeJobList()
+      this.updateHomeJobListAndCloseForm()
     }) 
   }
 
-  renderDeleteButton = () => {
-    const isEditing = this.state.isEditing
-    if (isEditing) {
-      return <input type="submit" value="Delete" name="delete" onClick={event => this.deleteJob(event)}/>
-    }
-    
-  }
+// DOM Rendering Functions
 
   capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
-}
+  }
+
+  renderInputFields = (fields, job) => {
+    return (
+        fields.map((item, index) => {
+
+        {
+
+          if (item.type == "tel") {
+            return (
+              <div className={ "form-group"} key={index}>
+                <label>{this.capitalizeFirstLetter(item.name)}:</label>
+                <ReactPhoneInput defaultCountry={'us'} key={index} type={item.type || "text"} className={`form-control form-${item.value}`} onChange={e=> this.handlePhoneInputChange(e)} name={item.value} pattern={item.pattern || ""} defaultValue={job[item.value] || ""} required={true} />    
+              </div>
+              )
+          } else if (item.type == "textarea") {
+            return (
+              <div className={ "form-group"} key={index}>
+                <label>{this.capitalizeFirstLetter(item.name)}:</label>
+                <textarea key={index} type={item.type || "text"} className={`form-control form-${item.value}`} onChange={e=> this.handleInputChange(e)} name={item.value} pattern={item.pattern || ""} defaultValue={job[item.value] || ""} rows={8} required={true} />       
+              </div>
+              )
+          } else {
+            return (
+            <div className={ "form-group"} key={index}>
+              <label>{this.capitalizeFirstLetter(item.name)}:</label>
+              <input key={index} type={item.type || "text"} className={`form-control form-${item.value}`} onChange={e=> this.handleInputChange(e)} name={item.value} pattern={item.pattern || ""} defaultValue={job[item.value] || ""} required={true} />       
+            </div>
+          )
+          }
+
+        }
+      }))
+    
+  }
+
+
   render = () => {
 
     const job = this.state
@@ -135,11 +172,15 @@ class EditJob extends Component {
         value: "logo_url"},
       {
         name: "Email Address",
-        value: "contact_address"
+        value: "contact_address",
+        type: "email"
       },
       {
         name: "Phone Number", 
-        value: "phone_number"},
+        value: "phone_number",
+        type: "tel"
+      },
+
       {
         name: "Street Address",
         value: "street_address"
@@ -159,37 +200,33 @@ class EditJob extends Component {
       }
     ]
    
-    const createInput = (item, key) =>
-    
-    <label key={key}>
-      {this.capitalizeFirstLetter(item.name)}:
-      <input
-        key={key}
-        name={item.value}
-        type={item.type || "text"}
-        pattern={item.pattern || ""}
-        defaultValue={job[item.value] || ""}
-        onChange={e => this.handleInputChange(e)} />
-    </label>
-
     return (
-      <div className="container"><h1>{job.isEditing? "Edit Job" : "Add New Job"}</h1>
-      
+      <div>
+        <div className="inner-header">
+          <span><h4>{job.isEditing? "Edit Job" : "Add New Job"}</h4></span>
+          <span className="jobs-list-header-right"><Link to='/' className='btn'>Go Back</Link></span>
+        </div>
         { job && !job.isLoading && 
-          <form>
+          <form className={"job-edit-form"}>
             <input name="jobId" defaultValue={job.id} hidden={true} onChange={event => this.handleInputChange(event)} />
-            {jobFormFields.map(createInput)}
-            <input type="submit" value="Submit" name="submit" onClick={event => this.handleJobFormSubmit(event)}/>
-            {this.renderDeleteButton()}
+            {this.renderInputFields(jobFormFields, job)}
+            
+            <div className="form-bottom-row">
+              {job.isEditing ? <button className="btn delete-button" type="submit" value="Delete" name="delete" onClick={event => this.deleteJob(event)}>Delete Job</button> : ""}
+              <button className="btn" type="submit" value="Submit" name="submit" onClick={event => this.handleJobFormSubmit(event)}>Submit form</button>
+            </div>
+            
           </form>
         }
-        <div className="">
-        <Link to='/' className='btn'>Go Back</Link>
-        </div>
       </div>
     )
   }
+  // End DOM Rendering Functions
 }
 
 export default EditJob;
+
+
+
+
 

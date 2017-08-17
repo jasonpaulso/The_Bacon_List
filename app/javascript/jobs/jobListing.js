@@ -10,6 +10,7 @@ import chevronDown from './assets/images/chevron-down.svg'
 import GoogleMaps from './maps'
 
 
+
 class JobListing extends Component {
 
   state = {
