@@ -91,6 +91,9 @@ input.search-jobs {
   justify-content: space-around;
   margin-bottom: 50px;
 }
+label {
+  color: grey;
+}
 
 ::-webkit-input-placeholder {color: black;}
 

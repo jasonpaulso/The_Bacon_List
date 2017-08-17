@@ -98,7 +98,7 @@ class App extends Component {
       <Router>
         <div className="main flex-direction-column">
             <div className="row header">
-                <h1>The Bacon</h1>
+                <h1>The Bacon List</h1>
                 <div className="header-right">
                     <input className='search-jobs' type='text' placeholder='Search:' value={query} onChange={(event)=> this.updateQuery(event.target.value)} />
                     <Link to={ "/form"}>
