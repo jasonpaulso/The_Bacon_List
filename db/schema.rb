@@ -10,9 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170817011109) do
+ActiveRecord::Schema.define(version: 20170817154443) do
 
-# Could not dump table "jobs" because of following StandardError
-#   Unknown type 'data' for column 'center'
+  create_table "jobs", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "company"
+    t.string "contact_address"
+    t.string "street_address"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
+    t.string "phone_number"
+    t.string "logo_url"
+  end
 
 end
