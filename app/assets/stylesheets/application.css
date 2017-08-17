@@ -160,12 +160,8 @@ img.chevron {
 }
 
 select {
-    /*padding-left:65px;*/
-    /*height:40px;*/
-    /*position:relative;*/
+
     border: none;
-    /*width:300px;*/
-    /*display:block;*/
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;

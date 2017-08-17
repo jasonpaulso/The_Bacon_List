@@ -63,7 +63,6 @@ class App extends Component {
   console.log("sorting by" + event.target.value)
     this.setState({
       sortOption: event.target.value
-      // jobsCollection: this.state.jobsCollection.sort(sortBy(event.target.value))
     }, console.log(this.state.jobsCollection))
 
 
@@ -131,7 +130,6 @@ class App extends Component {
           </div>
         )
       })
-
 
             }
           </div>

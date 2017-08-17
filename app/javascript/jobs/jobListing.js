@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Link, Switch, withRouter } from 'react-router-dom'
 import EditJob from './editJob'
-import GoogleMapReact from 'google-map-react'
-import Moment from 'moment';
+import Moment from 'moment'
 import SmoothCollapse from 'react-smooth-collapse'
 import sortBy from 'sort-by'
 import chevron from './assets/images/chevron.svg'
 import chevronDown from './assets/images/chevron-down.svg'
+import GoogleMaps from './maps'
+
 
 class JobListing extends Component {
 
@@ -45,12 +46,12 @@ class JobListing extends Component {
     }
   }
 
+
   render = () => {
     const { job } = this.props
     const { expanded } = this.state
       return (
         <div>
-
           <div  className="job-row">
             <div className="job-preview">
               <div className="job-preview-inner row">
@@ -78,10 +79,12 @@ class JobListing extends Component {
             </div>
             <div className="col-sm-5">
               <p>Location</p>
-              <div className="map-container"></div>
-              <span>Address </span>
+              <div className="map-container" id="map"><GoogleMaps address={job.street_address} city={job.city} state={job.state}/></div>
+              <span>{job.street_address}</span>
               <br/>
-              <span>City, State, Zip</span>
+              <span>{job.city} {job.state} {job.zip}</span>
+              <br/> 
+              {job.phone_number}
             </div>
             </div>
             <div className="job-listing-buttons-row row">

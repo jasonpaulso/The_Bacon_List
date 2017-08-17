@@ -13,9 +13,14 @@ class EditJob extends Component {
     title: "",
     description: "",
     company:"",
-    logo_ur: "",
+    logo_url: "",
     phone_number: "",
-    contact_address: ""
+    contact_address: "",
+    street_address: "",
+    city: "",
+    state: "",
+    zip: "",
+
   }
 
   componentWillMount = () => {
@@ -34,7 +39,7 @@ class EditJob extends Component {
     const name = target.name;
     this.setState({
       [name]: value
-    })
+    }, console.log(this.state))
   }
 
   handleJobForm = (event) => {
@@ -70,6 +75,10 @@ class EditJob extends Component {
         logo_url: job.logo_url,
         phone_number: job.phone_number,
         contact_address: job.contact_address,
+        street_address: job.street_address,
+        city: job.city,
+        state: job.state,
+        zip: job.zip,
         isLoading: false
       })
     })
@@ -77,6 +86,8 @@ class EditJob extends Component {
   }
 
   postJob = (event) => {
+    const job = this.state
+    console.log(job)
     const getJobsApi = '/api/v1/jobs';
     fetch(getJobsApi, {
       method: 'POST',
@@ -88,6 +99,10 @@ class EditJob extends Component {
         logo_url: job.logo_url,
         phone_number: job.phone_number,
         contact_address: job.contact_address,
+        street_address: job.street_address,
+        city: job.city,
+        state: job.state,
+        zip: job.zip,
       }),
       headers: {
       'Content-Type': 'application/json'
@@ -101,6 +116,7 @@ class EditJob extends Component {
     event.preventDefault()
     const editJobApi = `/api/v1/jobs/${this.state.id}`
     const job = this.state
+    console.log(job)
     fetch(editJobApi, {
       method: 'PUT',
       body: JSON.stringify({
@@ -111,6 +127,10 @@ class EditJob extends Component {
         logo_url: job.logo_url,
         phone_number: job.phone_number,
         contact_address: job.contact_address,
+        street_address: job.street_address,
+        city: job.city,
+        state: job.state,
+        zip: job.zip,
       }),
       headers: {
         'Content-Type': 'application/json'
@@ -155,7 +175,9 @@ class EditJob extends Component {
         value: "title"},
       {
         name: "Job Description",
-        value: "description"},
+        value: "description",
+        type: "textarea"
+      },
       {
         name: "Company Name",
         value: "company"},
@@ -163,11 +185,27 @@ class EditJob extends Component {
         name: "Logo URL",
         value: "logo_url"},
       {
+        name: "Email Address",
+        value: "contact_address"
+      },
+      {
         name: "Phone Number", 
         value: "phone_number"},
       {
-        name: "Email Address",
-        value: "contact_address"
+        name: "Street Address",
+        value: "street_address"
+      },
+      {
+        name: "City",
+        value: "city"
+      },
+      {
+        name: "State",
+        value: "state"
+      },
+      {
+        name: "Zip",
+        value: "zip"
       }
     ]
    
@@ -178,7 +216,7 @@ class EditJob extends Component {
       <input
         key={key}
         name={item.value}
-        type="text"
+        type={item.type || "text"}
         defaultValue={job[item.value] || ""}
         onChange={e => this.handleInputChange(e)} />
     </label>
