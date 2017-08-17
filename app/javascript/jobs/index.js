@@ -1,4 +1,4 @@
-import App from './listJobs';
+import App from './JobsApp';
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'

@@ -1,74 +1,42 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
-body {
-  margin-top:50px;
-}
- a {
+body {margin-top: 50px;}
+ 
+a {
   color: black;
   text-transform: uppercase;
  }
- a:hover {
-  color: darkgrey;
-  text-decoration: none;
+ 
+  a:hover {
+    color: darkgrey;
+    text-decoration: none;
+   }
+ 
+.sort-Select-style {
+  text-align: right;
+  overflow: hidden;
+  width: 150px;
+  text-transform: uppercase;
  }
-
- /*select {
-    text-align-last: right;
-}*/
-
-/*option {
-    direction: rtl;
-}*/
- .sort-Select-style {
-    text-align: right;
-    overflow:hidden;
-    width:150px;
-    text-transform: uppercase;
-   /*-moz-border-radius: 9px 9px 9px 9px;
-   -webkit-border-radius: 9px 9px 9px 9px;*/
-   /*border-radius: 9px 9px 9px 9px;*/
-   
-   /*background: #58B14C url("http://i62.tinypic.com/15xvbd5.png") no-repeat scroll 319px center;*/
-}
-
-.sort-Select-style select {
+ 
+  .sort-Select-style select {
     padding: 5px 8px;
-    /*width: 130%;*/
-    border: none;
+    border: none; /*width: 130%;*/
     box-shadow: none;
     background: transparent;
     background-image: none;
     -webkit-appearance: none;
     box-shadow: 0px 0px 2px 2px rgba(179,175,179,1);
-}
-
-.sort-Select-style select:focus {
-    outline: none;
-}
-
-.dropdown-option {
-  background-color: transparent;
-}
-
+   }
+ 
+    .sort-Select-style select:focus {outline: none;}
+ 
+.dropdown-option {background-color: transparent;}
+ 
 .flex-column {
   display: flex;
   align-content: center;
   flex-direction: column;
-}
-
+ }
+ 
 .header {
   width: 100%;
   display: flex;
@@ -77,21 +45,20 @@ body {
   align-items: center;
   padding: 30px;
   text-transform: uppercase;
-}
-
-.header h1 {
-  margin-right: auto
-}
-
+ }
+ 
+  .header h1 {margin-right: auto}
+ 
 .header-right {
   height: 30px;
   margin-left: auto;
-}
+ }
+ 
 .jobs-list-header-right {
   margin-left: auto;
   margin-right: 10px;
-}
-
+ }
+ 
 input.search-jobs {
   height: 100%;
   width: 300px;
@@ -100,12 +67,10 @@ input.search-jobs {
   text-transform: uppercase;
   letter-spacing: 1px;
   color: black;
-}
-
-::-webkit-input-placeholder {
-  color: black;
-}
-
+ }
+ 
+::-webkit-input-placeholder {color: black;}
+ 
 .btn {
   display: inline-block;
   color: #000000;
@@ -119,35 +84,32 @@ input.search-jobs {
   margin-top: -2.9px;
   text-transform: uppercase;
   vertical-align: middle;
-}
-
-.btn:hover {
-  background: #f5f5f5;
-  text-decoration: none;
-}
-
-
-
+ }
+ 
+  .btn:hover {
+    background: #f5f5f5;
+    text-decoration: none;
+   }
+ 
 .chevron-container {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-}
+ }
+ 
 img.chevron {
-  /*transform: rotate(180deg);*/
   height: 13.5px;
   margin-left: 10px;
-}
-
-.open img.chevron {
-  transform: unset;
-}
+ }
+ 
+.open img.chevron {transform: unset;}
+ 
 .jobs-list {
   width: 100%;
   box-shadow: 0px 0px 2px 2px rgba(179,175,179,1);
-}
-
+ }
+ 
 .jobs-list-header {
   width: 100%;
   display: flex;
@@ -157,118 +119,104 @@ img.chevron {
   padding: 30px;
   text-transform: uppercase;
   overflow: visible
-}
-
+ }
+ 
 select {
-
-    border: none;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -o-appearance: none;
-    -ms-appearance: none;
-    border-radius: 0;
-    -webkit-box-shadow: none;
-}
-
+  border: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  -ms-appearance: none;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+ }
+ 
 .job-preview {
- height: 150px;
- display: flex;
- flex-direction: column;
- justify-content: center;
-}
-
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+ }
+ 
 .job-preview-inner {
   height: 100px;
   width: 100%;
-}
-
-.expand-button-container {
-  text-align: right;
-}
-
-
-.job-preview h4 {
-  margin-bottom: 0px;
-}
-
+ }
+ 
+.expand-button-container {text-align: right;}
+ 
+.job-preview h4 {margin-bottom: 0px;}
+ 
 .job-logo {
   width: 100px;
   height: 100px;
-  /*border-radius: 50px;*/
-  /*background-color: grey;*/
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
-}
-
+ }
+ 
 .job-row {
   border-top: 1px solid lightgrey;
   width: 100%;
   padding-right: 30px;
-}
+ }
+ 
 .job-listing-preview {
   display: flex;
   flex-direction: row;
   align-items: center;
-}
-
+ }
+ 
 .preview-content {
   height: 100%;
   display: flex;
   flex-direction: column;
-  /*justify-content: space-between;*/
-}
+ }
+ 
 .job-collapse-toggle-container {
   width: 100px;
   height: 100%;
-}
-
+ }
+ 
 .collapse-button-column {
   height: 100%;
   float: right;
-}
-
+ }
+ 
 .logo-column {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.test-border {
-  height: 100%;
-}
-
-.col-sm-2, .col-sm-1 {
-  padding: 0px;
-}
-
+ }
+ 
+.test-border {height: 100%;}
+ 
+.col-sm-2, .col-sm-1 {padding: 0px;}
+ 
 .row {
   margin-left: unset;
   margin-right: unset
-}
-
-.job-content-container {
-  margin-bottom: 25px;
-}
-
+ }
+ 
+.job-content-container {margin-bottom: 25px;}
+ 
 .map-container {
   height: 300px;
   width: 100%;
   background-color: grey;
-}
-
+ }
+ 
 .job-listing-buttons-row {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding-bottom: 30px;
-}
-div[class^="col"] {
-  padding: 0;
-}
-.right-button-column {
-  text-align: right;
-}
-
+ }
+ 
+div[class^="col"] {padding: 0;}
+ 
+.right-button-column {text-align: right;}
+ 
+ 

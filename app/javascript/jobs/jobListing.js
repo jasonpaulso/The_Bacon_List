@@ -28,7 +28,7 @@ class JobListing extends Component {
     return(<span> {Moment(date).format('MM.D.Y')} </span>) 
   }
 
-  renderOpenClose() {
+  renderOpenCloseButton() {
     if (!this.state.expanded) {
       return (
         <span className="chevron-container">
@@ -65,7 +65,7 @@ class JobListing extends Component {
                   <h4>{job.company}</h4>
                 </div>
               </div>
-                <div className="col-sm-1 expand-button-container"><Link to={""} onClick={(event) => this.updateExpandState(event)}>{this.renderOpenClose()}</Link></div>
+                <div className="col-sm-1 expand-button-container"><Link to={""} onClick={(event) => this.updateExpandState(event)}>{this.renderOpenCloseButton()}</Link></div>
               </div>
 
             </div>

@@ -3,13 +3,12 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Link, Switch, withRouter } from 'react-router-dom'
 import DropdownSelection from './dropdown'
 
-
-
 class EditJob extends Component {
 
   state = {
+    isEditing: false,
     isLoading: true,
-    id: 0,
+    id: undefined,
     title: "",
     description: "",
     company:"",
@@ -42,13 +41,9 @@ class EditJob extends Component {
     }, console.log(this.state))
   }
 
-  handleJobForm = (event) => {
+  handleJobFormSubmit = (event) => {
     event.preventDefault()
-    if (this.state.id) {
-      this.editJob(event)
-    } else {
-      this.postJob(event)
-    }
+    this.postOrEditJob(event)
   }
 
   updateHomeJobList = () => {
@@ -67,75 +62,29 @@ class EditJob extends Component {
       return returnedValue.json()
     }).then(jobJson => {
       const job = jobJson
+      Object.keys(job).map((key) => {
+        this.setState({
+          [key]: job[key]
+        })
+      })
       this.setState({
-        title: job.title,
-        description: job.description,
-        id: job.id,
-        company: job.company,
-        logo_url: job.logo_url,
-        phone_number: job.phone_number,
-        contact_address: job.contact_address,
-        street_address: job.street_address,
-        city: job.city,
-        state: job.state,
-        zip: job.zip,
-        isLoading: false
+          isLoading: false, 
+          isEditing: true
       })
     })
 
   }
 
-  postJob = (event) => {
+  postOrEditJob = (event) => {
     const job = this.state
-    console.log(job)
-    const getJobsApi = '/api/v1/jobs';
+    const getJobsApi = `/api/v1/jobs/${this.state.id || ""}`;
     fetch(getJobsApi, {
-      method: 'POST',
-      body: JSON.stringify({
-        title: job.title,
-        description: job.description,
-        id: job.id,
-        company: job.company,
-        logo_url: job.logo_url,
-        phone_number: job.phone_number,
-        contact_address: job.contact_address,
-        street_address: job.street_address,
-        city: job.city,
-        state: job.state,
-        zip: job.zip,
-      }),
+      method: job.isEditing ? 'PUT' : 'POST',
+      body: JSON.stringify(job),
       headers: {
       'Content-Type': 'application/json'
     },
     }).then( _ => { 
-      this.updateHomeJobList()
-    })
-  }
-
-  editJob = (event) => {
-    event.preventDefault()
-    const editJobApi = `/api/v1/jobs/${this.state.id}`
-    const job = this.state
-    console.log(job)
-    fetch(editJobApi, {
-      method: 'PUT',
-      body: JSON.stringify({
-        title: job.title,
-        description: job.description,
-        id: job.id,
-        company: job.company,
-        logo_url: job.logo_url,
-        phone_number: job.phone_number,
-        contact_address: job.contact_address,
-        street_address: job.street_address,
-        city: job.city,
-        state: job.state,
-        zip: job.zip,
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    }).then( _ => {
       this.updateHomeJobList()
     })
   }
@@ -162,7 +111,7 @@ class EditJob extends Component {
     
   }
 
-  capitalizeFirstLetter(string) {
+  capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
   render = () => {
@@ -221,16 +170,14 @@ class EditJob extends Component {
         onChange={e => this.handleInputChange(e)} />
     </label>
 
-    
-
     return (
-      <div className="container"><h1>Add Job</h1>
+      <div className="container"><h1>{job.isEditing? "Edit Job" : "Add New Job"}</h1>
       
         { job && !job.isLoading && 
           <form>
             <input name="jobId" defaultValue={job.id} hidden={true} onChange={event => this.handleInputChange(event)} />
             {jobFormFields.map(createInput)}
-            <input type="submit" value="Submit" name="submit" onClick={event => this.handleJobForm(event)}/>
+            <input type="submit" value="Submit" name="submit" onClick={event => this.handleJobFormSubmit(event)}/>
             {this.renderDeleteButton()}
           </form>
         }

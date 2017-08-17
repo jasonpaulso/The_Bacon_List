@@ -23,12 +23,9 @@ class GoogleMaps extends Component {
       return returnedValue.json()
     }).then( json => {
       return json
-      
     }).then(result => {
-      
         return result.results[0].geometry.location
     }).then(location => {
-      console.log(location)
       this.setState({
         center: location
        
@@ -40,17 +37,10 @@ class GoogleMaps extends Component {
     const address = [this.props.address, this.props.city, this.props.state].join(" ")
     let addressString = address.split('.').join(' ');
     let query = QueryString.stringify({address:addressString})
-    console.log(query)
     return query
   }
 
   render() {
-
-    // var marker = new google.maps.Marker({
-    //       position: myLatLng,
-    //       map: map,
-    //       title: 'Hello World!'
-    //     })
 
     return (
       
