@@ -62,7 +62,6 @@ class SortSelect extends Component {
     return(
       <div >
         <select 
-          // size={1}
           id="sort"
           onChange={event => handleOptionSelect(event)}
           value={sortValue}

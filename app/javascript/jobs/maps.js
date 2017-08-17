@@ -28,7 +28,6 @@ class GoogleMaps extends Component {
     }).then(location => {
       this.setState({
         center: location
-       
       })
     })
   }
@@ -56,6 +55,7 @@ class GoogleMaps extends Component {
         }}
         optionsConstructor={function(maps) {
           Object.assign(this, {
+            scrollwheel: false,
             zoom : 15,
             mapTypeId : maps.MapTypeId.ROADMAP,
             disableDefaultUI: true,
@@ -64,7 +64,7 @@ class GoogleMaps extends Component {
                 position: maps.ControlPosition.LEFT_CENTER
             },
             keyboardShortcuts : true,
-            panControl: false,
+            panControl: true,
             panControlOptions : {
                 position : maps.ControlPosition.BOTTOM_RIGHT
             },
