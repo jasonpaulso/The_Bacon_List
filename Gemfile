@@ -36,6 +36,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'foreman'
 gem 'responders'
 gem 'pry'
+gem 'sqlite3'
 
 
 group :development, :test do
