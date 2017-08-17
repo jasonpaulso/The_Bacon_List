@@ -42,9 +42,9 @@ class GoogleMaps extends Component {
   render() {
 
     return (
-      
-      <Map
 
+      <Map
+  
         style={{height:"100%", width:"100%"}}
         api-key={this.state.apiKey}
         center={this.state.center}
@@ -80,13 +80,18 @@ class GoogleMaps extends Component {
             
           })
         }}>
-          
+        <Marker coords={this.state.center}>
+          <InfoWindow open={true}>
+              <div>{this.props.companyName}</div>
+          </InfoWindow>
 
-        //Any components passed as children get the maps and map props passed to them. 
+        </Marker>
       </Map>
+
     )
   }
 }
 
 
 export default GoogleMaps;
+

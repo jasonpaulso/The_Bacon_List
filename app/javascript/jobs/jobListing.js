@@ -73,16 +73,15 @@ class JobListing extends Component {
             <div className="row job-content-container">
             <div className="col-sm-2"></div>
             <div className="job-content col-sm-5">
-            <p>About this Job</p>
+            <h4>About this Job</h4>
             <p>{job.description}</p>
 
             </div>
             <div className="col-sm-5">
-              <p>Location</p>
-              <div className="map-container" id="map"><GoogleMaps address={job.street_address} city={job.city} state={job.state}/></div>
+              <div className="map-container" id="map"><GoogleMaps address={job.street_address} city={job.city} state={job.state} companyName={job.company}/></div>
               <span>{job.street_address}</span>
               <br/>
-              <span>{job.city} {job.state} {job.zip}</span>
+              <span>{job.city} {job.state} {job.zip.toString()}</span>
               <br/> 
               {job.phone_number}
             </div>

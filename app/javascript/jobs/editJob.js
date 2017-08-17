@@ -104,7 +104,7 @@ class EditJob extends Component {
   }
 
   renderDeleteButton = () => {
-    const isEditing = this.state.id
+    const isEditing = this.state.isEditing
     if (isEditing) {
       return <input type="submit" value="Delete" name="delete" onClick={event => this.deleteJob(event)}/>
     }
@@ -154,7 +154,8 @@ class EditJob extends Component {
       },
       {
         name: "Zip",
-        value: "zip"
+        value: "zip",
+        pattern: "[0-9]{5}"
       }
     ]
    
@@ -166,6 +167,7 @@ class EditJob extends Component {
         key={key}
         name={item.value}
         type={item.type || "text"}
+        pattern={item.pattern || ""}
         defaultValue={job[item.value] || ""}
         onChange={e => this.handleInputChange(e)} />
     </label>
