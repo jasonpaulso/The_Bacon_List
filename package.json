@@ -1,6 +1,7 @@
 {
   "name": "the_bacon",
   "private": true,
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "@mapbox/point-geometry": "^0.1.0",
     "autoprefixer": "^7.1.2",
