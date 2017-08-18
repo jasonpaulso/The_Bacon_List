@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Link, Switch, withRouter } from 'react-router-dom'
-import DropdownSelection from './dropdown'
 import ReactPhoneInput from 'react-phone-input'
 import Header from './header'
 
