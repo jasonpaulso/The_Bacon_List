@@ -88,7 +88,7 @@ class JobsList extends Component {
         <div className="row jobs-list">
           <div>
             <div className="inner-header">
-              <span>Listings found: {jobsCollection.length}</span>
+              <span>Listings found: {showingJobs.length}</span>
               <span className="inner-header-right">Sort By:</span>
               <SortSelect onChange={(event)=> this.onSortSelect(event)}/>
             </div>
