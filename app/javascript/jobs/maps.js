@@ -9,7 +9,7 @@ class GoogleMaps extends Component {
     center: {lat: 37.7749, lng: -122.4194}
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     this.getLocation()
     this.setState({
       lat: this.props.lat,
@@ -17,7 +17,7 @@ class GoogleMaps extends Component {
     })
   }
 
-  getLocation() {
+  getLocation = () => {
     const searchUrl = `https://maps.googleapis.com/maps/api/geocode/json?${this.formatAddressQuery()}&key=${this.state.apiKey}`
     return fetch(searchUrl).then(returnedValue => {
       return returnedValue.json()
@@ -32,14 +32,14 @@ class GoogleMaps extends Component {
     })
   }
 
-  formatAddressQuery() {
+  formatAddressQuery = () => {
     const address = [this.props.address, this.props.city, this.props.state].join(" ")
     let addressString = address.split('.').join(' ');
     let query = QueryString.stringify({address:addressString})
     return query
   }
 
-  render() {
+  render = () => {
 
     return (
 

@@ -20,7 +20,6 @@ class App extends Component {
     this.updateJobsList()
   }
 
-// Search Functions
   updateQuery = (query) => {
     this.setState({ query: query })
   }
@@ -28,9 +27,7 @@ class App extends Component {
   clearQuery = () => {
     this.setState({ query: '' })
   }
-// End Search Functions
 
-// Fetch and Update Jobs Listing Functions
   getJobs = () => {
     const getJobsApi = '/api/v1/jobs.json';
     return fetch(getJobsApi).then(returnedValue => {
@@ -47,9 +44,6 @@ class App extends Component {
       })
     })
   }
-// End Fetch and Update Jobs Listing Functions
-
-// DOM Rendering Functions
 
   sortByDate(event) {
     event.preventDefault()
@@ -129,8 +123,6 @@ class App extends Component {
     </Router>
     )
   }
-
-// End DOM Rendering Functions
 }
 
 export default App;

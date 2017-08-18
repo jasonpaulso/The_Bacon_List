@@ -110,8 +110,6 @@ class EditJob extends Component {
     }) 
   }
 
-// DOM Rendering Functions
-
   capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
@@ -126,19 +124,42 @@ class EditJob extends Component {
             return (
               <div className={ "form-group"} key={index}>
                 <label>{this.capitalizeFirstLetter(item.name)}:</label>
-                <ReactPhoneInput defaultCountry={'us'} key={index} type={item.type || "text"} className={`form-control form-${item.value}`} onChange={e=> this.handlePhoneInputChange(e)} name={item.value} pattern={item.pattern || ""} defaultValue={"4159619350"} required={true} />    
+                <ReactPhoneInput 
+                  defaultCountry={'us'} key={index} type={item.type || "text"} 
+                  className={`form-control form-${item.value}`} 
+                  onChange={e=> this.handlePhoneInputChange(e)} 
+                  name={item.value} pattern={item.pattern || ""} 
+                  defaultValue={"4159619350"} 
+                  required={true} />    
               </div>
               )
           } else if (item.type == "textarea") {
             return (
               <div className={ "form-group"} key={index}>
-                <textarea placeholder={this.capitalizeFirstLetter(item.name)} key={index} type={item.type || "text"} className={`form-control form-${item.value}`} onChange={e=> this.handleInputChange(e)} name={item.value} pattern={item.pattern || ""} defaultValue={job[item.value] || ""} rows={8} required={true} />       
+                <textarea 
+                  placeholder={this.capitalizeFirstLetter(item.name)} 
+                  key={index} type={item.type || "text"} 
+                  className={`form-control form-${item.value}`} 
+                  onChange={e=> this.handleInputChange(e)} 
+                  name={item.value} 
+                  pattern={item.pattern || ""} 
+                  defaultValue={job[item.value] || ""} 
+                  rows={8} 
+                  required={true} />       
               </div>
               )
           } else {
             return (
             <div className={ "form-group"} key={index}>
-              <input placeholder={this.capitalizeFirstLetter(item.name)} key={index} type={item.type || "text"} className={`form-control form-${item.value}`} onChange={e=> this.handleInputChange(e)} name={item.value} pattern={item.pattern || ""} defaultValue={job[item.value] || ""} required={true} />       
+              <input 
+                placeholder={this.capitalizeFirstLetter(item.name)} 
+                key={index} type={item.type || "text"} 
+                className={`form-control form-${item.value}`} 
+                onChange={e=> this.handleInputChange(e)} 
+                name={item.value} 
+                pattern={item.pattern || ""} 
+                defaultValue={job[item.value] || ""} 
+                required={true} /> 
             </div>
           )
           }
@@ -219,7 +240,6 @@ class EditJob extends Component {
       </div>
     )
   }
-  // End DOM Rendering Functions
 }
 
 export default EditJob;
