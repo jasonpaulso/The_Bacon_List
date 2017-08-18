@@ -6,6 +6,10 @@ body {
   margin-top: 50px;
 }
 
+.container {
+  margin-bottom: 100px;
+}
+
 a {
   
   color: black;
@@ -113,7 +117,6 @@ label {
 .btn {
   display: inline-block;
   color: #000000;
-  /*line-height: 100%;*/
   font-size: 12px;
   letter-spacing: 1px;
   border: solid #000000 2px;
