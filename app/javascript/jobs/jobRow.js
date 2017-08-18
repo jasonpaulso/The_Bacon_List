@@ -10,8 +10,7 @@ import chevronDown from './assets/images/chevron-down.svg'
 import GoogleMaps from './maps'
 
 
-
-class JobListing extends Component {
+class Job extends Component {
 
   state = {
     expanded: false,
@@ -52,7 +51,6 @@ class JobListing extends Component {
     const { job } = this.props
     const { expanded } = this.state
       return (
-        <div>
           <div  className="job-row">
             <div className="job-preview">
               <div className="job-preview-inner row">
@@ -94,11 +92,10 @@ class JobListing extends Component {
             </div>
             </SmoothCollapse>
           </div>
-        </div>
       )
 
   }
 
 }
-export default JobListing;
+export default Job;
 

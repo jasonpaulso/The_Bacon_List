@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Link, Switch, withRouter } from 'react-router-dom'
 import DropdownSelection from './dropdown'
 import ReactPhoneInput from 'react-phone-input'
+import Header from './header'
 
 
 class EditJob extends Component {
@@ -43,10 +44,10 @@ class EditJob extends Component {
     }, console.log(this.state))
   }
   handlePhoneInputChange = (value) => {
-   this.setState({
-      phone_number: value
-   });
-}
+     this.setState({
+        phone_number: value
+     });
+  }
 
   handleJobFormSubmit = (event) => {
     event.preventDefault()
@@ -118,9 +119,7 @@ class EditJob extends Component {
     return (
         fields.map((item, index) => {
 
-        {
-
-          if (item.type == "tel") {
+        { if (item.type == "tel") {
             return (
               <div className={ "form-group"} key={index}>
                 <label>{this.capitalizeFirstLetter(item.name)}:</label>
@@ -129,7 +128,6 @@ class EditJob extends Component {
                   className={`form-control form-${item.value}`} 
                   onChange={e=> this.handlePhoneInputChange(e)} 
                   name={item.value} pattern={item.pattern || ""} 
-                  defaultValue={"4159619350"} 
                   required={true} />    
               </div>
               )
@@ -162,29 +160,28 @@ class EditJob extends Component {
                 required={true} /> 
             </div>
           )
-          }
-
         }
-      }))
-    
+      }
+    }))
   }
 
 
   render = () => {
 
     const job = this.state
+    const isEnabled = job.title.length > 0 && job.company.length > 0 && job.description.length > 0 && job.city.length > 0 && job.state.length > 0
 
     const jobFormFields = [
       {
-        name: "Job Title",
+        name: "Job Title*",
         value: "title"},
       {
-        name: "Job Description",
+        name: "Job Description*",
         value: "description",
         type: "textarea"
       },
       {
-        name: "Company Name",
+        name: "Company Name*",
         value: "company"},
       {
         name: "Logo URL",
@@ -205,11 +202,11 @@ class EditJob extends Component {
         value: "street_address"
       },
       {
-        name: "City",
+        name: "City*",
         value: "city"
       },
       {
-        name: "State",
+        name: "State*",
         value: "state"
       },
       {
@@ -218,26 +215,36 @@ class EditJob extends Component {
         pattern: "[0-9]{5}"
       }
     ]
+
+    
    
     return (
-      <div>
-        <div className="inner-header">
-          <span><h4>{job.isEditing? "Edit Job" : "Add New Job"}</h4></span>
-          <span className="jobs-list-header-right"><Link to='/' className='btn'>Go Back</Link></span>
-        </div>
-        { job && !job.isLoading && 
-          <form className={"job-edit-form"}>
-            <input name="jobId" defaultValue={job.id} hidden={true} onChange={event => this.handleInputChange(event)} />
-            {this.renderInputFields(jobFormFields, job)}
-            
+      <span>
+        <Header isEditing={true}/>
+        <div className="row jobs-list">
+          <div className="inner-header">
+             <span>
+                <h4>{job.isEditing? "Edit Job" : "Add New Job"}</h4>
+             </span>
+          </div>
+
+          { job && !job.isLoading && 
+          <form className={"job-edit-form"} >
+
+          <input name="jobId" defaultValue={job.id} hidden={true} onChange={event => this.handleInputChange(event)} />
+           {this.renderInputFields(jobFormFields, job)}
+          <span className="required-message-container form-group">{!isEnabled ?  "*Required Field": ""}</span>
             <div className="form-bottom-row">
               {job.isEditing ? <button className="btn delete-button" type="submit" value="Delete" name="delete" onClick={event => this.deleteJob(event)}>Delete Job</button> : ""}
-              <button className="btn" type="submit" value="Submit" name="submit" onClick={event => this.handleJobFormSubmit(event)}>Submit form</button>
+              <div className="submit-button-container" >
+                <button className="btn" type="submit" value="Submit" name="submit" onClick={event => this.handleJobFormSubmit(event)} disabled={!isEnabled}>{job.isEditing ? "Save Changes" : "Submit Job"}</button>
+                <div className="incomplete-alert" style={{textAlign: "center"}}>{!isEnabled ?  "Please complete the required fields.": ""}</div>
+              </div>  
             </div>
-            
           </form>
-        }
-      </div>
+          }
+        </div>
+      </span>
     )
   }
 }

@@ -19,15 +19,12 @@ class SortSelect extends Component {
 
     const { onChange } = this.props
     const { updateSortState } = this
-
     const option = event.target.value
-
     updateSortState(option)
-
     onChange(event)
   }
 
-  render() {
+  render = () => {
 
     const sortOptions = [
         {
@@ -46,19 +43,20 @@ class SortSelect extends Component {
           name: 'Job Title',
           value: 'title'
         }
-      ] 
+      ]
+
     const { sortValue } = this.state
-    const { handleOptionSelect } = this
-        
+    const { handleOptionSelect } = this    
     const createItem = (item, key) =>
 
-      <option
-        className="dropdown-option"
-        key={key}
-        value={item.value}
-      >
-        {item.name}
-      </option>
+    <option
+      className="dropdown-option"
+      key={key}
+      value={item.value}
+    >
+      {item.name}
+    </option>
+
     return(
       <div >
         <select 
@@ -69,10 +67,9 @@ class SortSelect extends Component {
           style={{background:`transparent url(${chevronDown}) no-repeat 100% 50%`}}
         >
           {sortOptions.map(createItem)}
-          
         </select>
       </div>
-      )
+    )
   }
 }
 

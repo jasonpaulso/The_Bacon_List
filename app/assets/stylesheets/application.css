@@ -2,7 +2,9 @@
 * {
   font-family: 'Roboto', sans-serif;
 }
-body {margin-top: 50px;}
+body {
+  margin-top: 50px;
+}
 
 a {
   
@@ -32,9 +34,13 @@ a:hover {
   box-shadow: 0px 0px 2px 2px rgba(179,175,179,1);
 }
 
-.sort-Select-style select:focus {outline: none;}
+.sort-Select-style select:focus {
+  outline: none;
+}
 
-.dropdown-option {background-color: transparent;}
+.dropdown-option {
+  background-color: transparent;
+}
 
 .flex-column {
   display: flex;
@@ -52,7 +58,10 @@ a:hover {
   text-transform: uppercase;
 }
 
-.header h1 {margin-right: auto}
+.header h1 {
+  margin-right: auto;
+  font-weight: bolder;
+}
 
 .header-right {
   height: 30px;
@@ -72,6 +81,10 @@ input.search-jobs {
   text-transform: uppercase;
   letter-spacing: 1px;
   color: black;
+}
+
+.required-message-container {
+  text-align: right;
 }
 
 .form-group {
@@ -100,8 +113,7 @@ label {
 .btn {
   display: inline-block;
   color: #000000;
-  height: 100%;
-  line-height: 100%;
+  /*line-height: 100%;*/
   font-size: 12px;
   letter-spacing: 1px;
   border: solid #000000 2px;
@@ -116,6 +128,11 @@ label {
 .btn:hover {
   background: #f5f5f5;
   text-decoration: none;
+}
+
+.submit-button-container {
+  display: flex;
+  flex-direction: column;
 }
 
 .chevron-container {
@@ -218,9 +235,13 @@ select {
   align-items: center;
 }
 
-.test-border {height: 100%;}
+.test-border {
+  height: 100%;
+}
 
-.col-sm-2, .col-sm-1 {padding: 0px;}
+.col-sm-2, .col-sm-1 {
+  padding: 0px;
+}
 
 .row {
   margin-left: unset;
@@ -242,8 +263,12 @@ select {
   padding-bottom: 30px;
 }
 
-div[class^="col"] {padding: 0;}
+div[class^="col"] {
+  padding: 0;
+}
 
-.right-button-column {text-align: right;}
+.right-button-column {
+  text-align: right;
+}
 
 
