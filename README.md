@@ -1,24 +1,36 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The Bacon List
 
-Things you may want to cover:
+A sample web app built on Rails with a React front end.
 
-* Ruby version
+This app allows for posting, viewing, editing, and deleting of job postings.
 
-* System dependencies
+The app is available to be viewed live on [link to Heroku](https://the-bacon-list.herokuapp.com).
 
-* Configuration
+The Bacon List utilizes the following js/react libraries:
 
-* Database creation
+* 'react-router-dom’
+* 'escape-string-regexp’
+* 'sort-by’
+* 'google-react-maps’
+* 'query-string’
+* 'react-phone-input’
 
-* Database initialization
+To run the app locally please take the following steps.
 
-* How to run the test suite
+* Clone the app.
+* Using terminal `cd` into the repo directory.
+* Run `bundle install`
+* Run `rails db:migrate` & `rails db:seed`
+* Run `bundle exec foreman start -f Procfile.dev` to start the app.
+* View and use the app in your browser at the address provided as a response to the previous step.
 
-* Services (job queues, cache servers, search engines, etc.)
+To Do:
 
-* Deployment instructions
+* Add mobile views
+* Implement user authorization/authentication
+* Add error handling
+* Add input validation
+* Etc...
 
-* ...
