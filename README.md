@@ -34,3 +34,8 @@ To Do:
 * Add input validation
 * Etc...
 
+This app is based in part on the advice and instruction provided by the following tutorials, among countless others.
+
+* https://medium.com/statuscode/introducing-webpacker-7136d66cddfb
+* https://www.pluralsight.com/guides/ruby-ruby-on-rails/building-a-crud-interface-with-react-and-ruby-on-rails
+* https://medium.com/superhighfives/a-top-shelf-web-stack-rails-5-api-activeadmin-create-react-app-de5481b7ec0b
