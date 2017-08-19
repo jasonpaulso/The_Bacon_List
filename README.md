@@ -1,14 +1,10 @@
 # README
 
-The Bacon List
+[The Bacon List](https://the-bacon-list.herokuapp.com): A sample web app built on Rails with a React front end.
 
-A sample web app built on Rails with a React front end.
+This app allows for posting, viewing, editing, and deleting of job listings.
 
-This app allows for posting, viewing, editing, and deleting of job postings.
-
-The app is available to be viewed live on [Heroku](https://the-bacon-list.herokuapp.com).
-
-The Bacon List utilizes the following js/react libraries:
+[The Bacon List](https://the-bacon-list.herokuapp.com) utilizes the following js/react libraries:
 
 * 'react-router-dom’
 * 'escape-string-regexp’
