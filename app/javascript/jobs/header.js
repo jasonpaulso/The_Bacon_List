@@ -27,7 +27,7 @@ class Header extends Component {
   render = () => {
     return (
       <div className="row header">
-        <h1>The Bacon List</h1>
+        <h1>The Job List</h1>
         <div className="header-right">
           {this.renderHeaderRight()}
         </div>
